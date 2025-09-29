@@ -80,7 +80,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           categoryImage: category.id.toString(), // Placeholder tag
                           onTap: () {
                             // Call the GetX controller method on tap
-                            controller.selectCategory(category.id!.toString());
+                            controller.selectCategory(category.id!);
                           },
                         );
                       },

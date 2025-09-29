@@ -65,6 +65,7 @@ flutter:
   assets:
     - assets/welcome/welcome.png
     - assets/categories/
+    - assets/quiz_configure/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

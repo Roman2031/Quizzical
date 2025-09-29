@@ -7,7 +7,7 @@ import '../models/category_model.dart';
 class CategoriesController extends GetxController {
   // Observable variable to hold the currently selected category index (or ID/Name).
   // We'll use the category name for simplicity here.
-  var selectedCategory = 'None'.obs;
+  RxInt selectedCategory = 0.obs;
   RxBool isLoading = false.obs;
   List<CategoryModel> categoryList = <CategoryModel>[].obs;
 
@@ -20,17 +20,8 @@ class CategoriesController extends GetxController {
     isLoading.value = false;
   }
 
- 
-
-  // Method to update the selected category
-  void selectCategory(String categoryName) {
-    selectedCategory.value = categoryName;
-    // In a real app, you'd navigate here, e.g.:
-    // Get.toNamed('/quiz', arguments: categoryName);
-    Get.snackbar(
-      'Category Selected',
-      '$categoryName is ready for your quiz!',
-      snackPosition: SnackPosition.BOTTOM,
-    );
+  void selectCategory(int categoryId) {
+    selectedCategory.value = categoryId;
+    Get.toNamed('/quiz_configuration_screen', arguments: categoryId);
   }
 }
