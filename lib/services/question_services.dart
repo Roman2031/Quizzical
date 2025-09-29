@@ -1,11 +1,11 @@
 // ignore_for_file: depend_on_referenced_packages, must_be_immutable,avoid_print
 import 'package:dio/dio.dart';
-import '../models/question_model.dart';
+import '../models/all_question__model.dart';
 
 class QuestionServices {
   Dio dio = Dio();
 
-  Future<List<QuestionModel>> getQuestionList({
+  Future<List<AllQuestionModel>> getQuestionList({
     required int amount,
     required int category,
     required String difficulty,
@@ -19,12 +19,13 @@ class QuestionServices {
       baseUrl: urlLink,
       contentType: Headers.jsonContentType,
     );
+    print('URL: $urlLink');
     try {
       Response response = await dio.get(Uri.encodeFull(urlLink));
       if (response.statusCode == 200) {
-        var result = response.data["results"] as List;
-        List<QuestionModel> listData = result
-            .map((tagJson) => QuestionModel.fromJson(tagJson))
+        List result = response.data["results"] as List;
+        List<AllQuestionModel> listData = result
+            .map((tagJson) => AllQuestionModel.fromJson(tagJson))
             .toList();
         return listData;
       } else {

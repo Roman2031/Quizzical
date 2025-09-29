@@ -5,6 +5,6 @@ class WelcomeController extends GetxController {
   final RxBool isLoading = false.obs;
 
   void onGetStarted() {
-     Get.toNamed('/CategoriesScreen');
+     Get.toNamed('/categoriesScreen');
   }
 }
