@@ -30,7 +30,7 @@ class QuizConfigController extends GetxController {
       final QuestionController questionController = Get.put(
         QuestionController(),
       );
-     questionController.getQuestionList(
+    await questionController.getQuestionList(
         amount: _numberOfQuestions.value.toInt(),
         category:
             Get.arguments ?? 0, // Assuming category ID is passed as an argument

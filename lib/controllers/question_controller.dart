@@ -13,7 +13,7 @@ class QuestionController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<AllQuestionModel> questionList = <AllQuestionModel>[].obs;
 
-  void getQuestionList({
+  Future<void> getQuestionList({
     required int amount,
     required int category,
     required String difficulty,

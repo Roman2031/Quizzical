@@ -101,7 +101,7 @@ class SingleQuestionScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child: Text("Next", style: GoogleFonts.baloo2(fontSize: 16)),
+                    child: Text("Next", style: GoogleFonts.baloo2(fontSize: 20,color: Colors.white,fontWeight: FontWeight.bold)),
                   ),
                 )
               ],
