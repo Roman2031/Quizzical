@@ -8,13 +8,16 @@ class CategoriesController extends GetxController {
   // Observable variable to hold the currently selected category index (or ID/Name).
   // We'll use the category name for simplicity here.
   var selectedCategory = 'None'.obs;
+  RxBool isLoading = false.obs;
   List<CategoryModel> categoryList = <CategoryModel>[].obs;
 
   void getCategoryList(){
+    isLoading.value = true;
     final categoryServices = CategoryServices();
     categoryServices.categoryList().then((value) {
       categoryList.addAll(value);
     });
+    isLoading.value = false;
   }
 
  

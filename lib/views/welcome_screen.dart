@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:google_fonts/google_fonts.dart';
 import '../controllers/welcome_controller.dart';
 
 // ------------------------------------------------------------------
@@ -65,7 +65,7 @@ class WelcomeScreen extends StatelessWidget {
                         // Title Text
                         Text(
                           'Quizzical',
-                          style: TextStyle(
+                          style: GoogleFonts.aoboshiOne(
                             fontSize: 48,
                             fontWeight: FontWeight.bold,
                             color: titleColor,
@@ -100,7 +100,7 @@ class WelcomeScreen extends StatelessWidget {
                           ?  CircularProgressIndicator(color: Colors.white)
                           :  Text(
                               'GET STARTED',
-                              style: TextStyle(
+                              style: GoogleFonts.baloo2(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w700,
                                 color: Colors.white,

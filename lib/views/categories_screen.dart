@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:quizzical/controllers/categories_controller.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key});
+  CategoriesScreen({super.key});
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  final CategoriesController controller = Get.put(
-    CategoriesController(),
-  );
+  final CategoriesController controller = Get.put(CategoriesController());
 
   @override
   void initState() {
@@ -20,6 +19,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     super.initState();
     controller.getCategoryList();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,72 +30,78 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         elevation: 0,
         // The notch cutout area is typically handled by the device/Scaffold
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20.0), // Padding around the content
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Title: "Quizzical"
-            const Text(
-              'Quizzical',
-              style: TextStyle(
-                fontSize: 36,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                fontFamily: 'Montserrat', // Using a generic custom font look
+      body: controller.isLoading.value
+          ? Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+              padding: EdgeInsets.all(20.0), // Padding around the content
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Title: "Quizzical"
+                  Text(
+                    'Quizzical',
+                    style: GoogleFonts.aoboshiOne(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black, // Using a generic custom font look
+                    ),
+                  ),
+                  SizedBox(height: 8),
+
+                  // Subtitle: "choose a category to focus on:"
+                  Text(
+                    'choose a category to focus on:',
+                    style: GoogleFonts.amethysta(
+                      fontSize: 16,
+                      color: Colors.black54,
+                    ),
+                  ),
+                  SizedBox(height: 24),
+
+                  // 2x3 Grid View of Categories
+                  Obx(
+                    () => // Use Obx to rebuild the part that depends on state (optional here, but good practice)
+                    GridView.builder(
+                      shrinkWrap: true,
+                      physics:
+                          NeverScrollableScrollPhysics(), // Important for nested scrolling
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Two items per row
+                        crossAxisSpacing: 16.0, // Horizontal spacing
+                        mainAxisSpacing: 16.0, // Vertical spacing
+                        childAspectRatio:
+                            0.95, // Adjust aspect ratio for pixel-perfect look
+                      ),
+                      itemCount: controller.categoryList.length,
+                      itemBuilder: (context, index) {
+                        final category = controller.categoryList[index];
+                        return CategoryTile(
+                          id: category.id!,
+                          name: category.name!,
+                          backgroundColor: Colors
+                              .primaries[index % Colors.primaries.length]
+                              .shade200,
+                          imageTag:
+                              'category_${category.id}', // Placeholder tag
+                          onTap: () {
+                            // Call the GetX controller method on tap
+                            controller.selectCategory(category.id!.toString());
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 8),
-
-            // Subtitle: "choose a category to focus on:"
-            const Text(
-              'choose a category to focus on:',
-              style: TextStyle(fontSize: 16, color: Colors.black54),
-            ),
-            const SizedBox(height: 24),
-
-            // 2x3 Grid View of Categories
-            Obx(
-              () => // Use Obx to rebuild the part that depends on state (optional here, but good practice)
-              GridView.builder(
-                shrinkWrap: true,
-                physics:
-                    const NeverScrollableScrollPhysics(), // Important for nested scrolling
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2, // Two items per row
-                  crossAxisSpacing: 16.0, // Horizontal spacing
-                  mainAxisSpacing: 16.0, // Vertical spacing
-                  childAspectRatio:
-                      0.95, // Adjust aspect ratio for pixel-perfect look
-                ),
-                itemCount: controller.categoryList.length,
-                itemBuilder: (context, index) {
-                  final category = controller.categoryList[index];
-                  return CategoryTile(
-                    id: category.id!,
-                    name: category.name!,
-                    backgroundColor: Colors.primaries[index % Colors.primaries.length]
-                        .shade200,
-                    imageTag: 'category_${category.id}', // Placeholder tag
-                    onTap: () {
-                      // Call the GetX controller method on tap
-                      controller.selectCategory(category.id!.toString());
-                    },
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
       // Optional: Display current selection for demonstration
       bottomNavigationBar: Obx(
         () => Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: EdgeInsets.all(16.0),
           child: Text(
             'Selected: ${controller.selectedCategory.value}',
             textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16, color: Colors.blueGrey),
+            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
           ),
         ),
       ),
@@ -110,7 +116,7 @@ class CategoryTile extends StatelessWidget {
   final String imageTag; // For image display (using a placeholder in code)
   final VoidCallback onTap;
 
-  const CategoryTile({
+  CategoryTile({
     Key? key,
     required this.id,
     required this.name,
@@ -128,7 +134,7 @@ class CategoryTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(20), // Rounded corners for the card
       child: Container(
         height: 180, // Approximate height for a 2x3 grid item
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         decoration: BoxDecoration(
           color: backgroundColor,
           borderRadius: BorderRadius.circular(20),
@@ -138,7 +144,7 @@ class CategoryTile extends StatelessWidget {
               color: Colors.black.withOpacity(0.05),
               spreadRadius: 1,
               blurRadius: 5,
-              offset: const Offset(0, 3),
+              offset: Offset(0, 3),
             ),
           ],
         ),
@@ -148,11 +154,11 @@ class CategoryTile extends StatelessWidget {
           children: [
             // Placeholder for the large 3D graphic.
             // In a real app, you'd put the image here, e.g., Image.asset('assets/images/$imageTag.png')
-            const Spacer(), // Pushes the text to the bottom
+            Spacer(), // Pushes the text to the bottom
 
             Text(
               name,
-              style: const TextStyle(
+              style: GoogleFonts.baloo2(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
                 color: Colors.black87,
