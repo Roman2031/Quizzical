@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 import '../controllers/categories_controller.dart';
-import 'package:quizzical/services/category_services.dart';
+import 'package:quizzical/services/question_services.dart';
 import '../models/category_model.dart';
 
 class QuizCategoriesBinding extends Bindings {

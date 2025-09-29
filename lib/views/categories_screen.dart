@@ -12,6 +12,7 @@ class CategoriesScreen extends StatefulWidget {
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final CategoriesController controller = Get.put(CategoriesController());
+  
 
   @override
   void initState() {

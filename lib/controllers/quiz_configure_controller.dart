@@ -1,9 +1,10 @@
 import 'package:get/get.dart';
+import 'package:quizzical/controllers/question_controller.dart';
 
 class QuizConfigController extends GetxController {
   // Observables for state management
   final RxDouble _numberOfQuestions = 25.0.obs;
-  final RxString _difficultyLevel = 'Any'.obs;
+  final RxString _difficultyLevel = 'Easy'.obs;
 
   // Getters to access the values
   double get numberOfQuestions => _numberOfQuestions.value;
@@ -11,7 +12,6 @@ class QuizConfigController extends GetxController {
 
   // Available difficulty levels for the dropdown
   final List<String> difficultyOptions = [
-    'Any',
     'Easy',
     'Medium',
     'Hard',
@@ -29,6 +29,16 @@ class QuizConfigController extends GetxController {
   }
 
   void startQuiz() {
+    
+    final QuestionController questionController = Get.put(QuestionController());
+   var result = questionController.getQuestionList(
+      amount: _numberOfQuestions.value.toInt(),
+      category: Get.arguments ?? 0, // Assuming category ID is passed as an argument
+      difficulty: _difficultyLevel.value.toLowerCase() == 'easy'
+          ? ''
+          : _difficultyLevel.value.toLowerCase(),
+      type: 'multiple', // Assuming multiple choice questions
+    );
     // Logic to navigate to the quiz, passing the selected configuration
     print('Starting Quiz with:');
     print('Questions: ${_numberOfQuestions.value.toInt()}');
