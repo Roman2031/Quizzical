@@ -30,38 +30,34 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         elevation: 0,
         // The notch cutout area is typically handled by the device/Scaffold
       ),
-      body: controller.isLoading.value
-          ? Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              padding: EdgeInsets.all(20.0), // Padding around the content
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Title: "Quizzical"
-                  Text(
-                    'Quizzical',
-                    style: GoogleFonts.aoboshiOne(
-                      fontSize: 36,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black, // Using a generic custom font look
-                    ),
-                  ),
-                  SizedBox(height: 8),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20.0), // Padding around the content
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Title: "Quizzical"
+            Text(
+              'Quizzical',
+              style: GoogleFonts.aoboshiOne(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.black, // Using a generic custom font look
+              ),
+            ),
+            SizedBox(height: 8),
 
-                  // Subtitle: "choose a category to focus on:"
-                  Text(
-                    'choose a category to focus on:',
-                    style: GoogleFonts.amethysta(
-                      fontSize: 16,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  SizedBox(height: 24),
+            // Subtitle: "choose a category to focus on:"
+            Text(
+              'choose a category to focus on:',
+              style: GoogleFonts.amethysta(fontSize: 16, color: Colors.black54),
+            ),
+            SizedBox(height: 24),
 
-                  // 2x3 Grid View of Categories
-                  Obx(
-                    () => // Use Obx to rebuild the part that depends on state (optional here, but good practice)
-                    GridView.builder(
+            // 2x3 Grid View of Categories
+            Obx(
+              () => controller.isLoading.value
+                  ? Center(child: CircularProgressIndicator())
+                  : GridView.builder(
                       shrinkWrap: true,
                       physics:
                           NeverScrollableScrollPhysics(), // Important for nested scrolling
@@ -81,8 +77,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           backgroundColor: Colors
                               .primaries[index % Colors.primaries.length]
                               .shade200,
-                          imageTag:
-                              'category_${category.id}', // Placeholder tag
+                          categoryImage: category.id.toString(), // Placeholder tag
                           onTap: () {
                             // Call the GetX controller method on tap
                             controller.selectCategory(category.id!.toString());
@@ -90,22 +85,12 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         );
                       },
                     ),
-                  ),
-                ],
-              ),
             ),
-      // Optional: Display current selection for demonstration
-      bottomNavigationBar: Obx(
-        () => Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Text(
-            'Selected: ${controller.selectedCategory.value}',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16, color: Colors.blueGrey),
-          ),
+          ],
         ),
       ),
     );
+    // Optional: Display current selection for demonstration
   }
 }
 
@@ -113,7 +98,7 @@ class CategoryTile extends StatelessWidget {
   final int id;
   final String name;
   final Color backgroundColor;
-  final String imageTag; // For image display (using a placeholder in code)
+  final String categoryImage; // For image display (using a placeholder in code)
   final VoidCallback onTap;
 
   CategoryTile({
@@ -121,12 +106,13 @@ class CategoryTile extends StatelessWidget {
     required this.id,
     required this.name,
     required this.backgroundColor,
-    required this.imageTag,
+    required this.categoryImage,
     required this.onTap,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     // Note: To perfectly match the image, you'd use specific 3D assets/images
     // instead of a simple Container with text.
     return InkWell(
@@ -150,10 +136,13 @@ class CategoryTile extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Placeholder for the large 3D graphic.
-            // In a real app, you'd put the image here, e.g., Image.asset('assets/images/$imageTag.png')
+            Image(
+              image: AssetImage('assets/categories/$categoryImage.png'),
+              width: screenHeight * 0.10,
+            ),
             Spacer(), // Pushes the text to the bottom
 
             Text(
