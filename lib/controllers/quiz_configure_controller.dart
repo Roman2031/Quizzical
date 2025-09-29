@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class QuizConfigController extends GetxController {
   // Observables for state management
   final RxDouble _numberOfQuestions = 25.0.obs;
-  final RxString _difficultyLevel = 'Any Difficulty'.obs;
+  final RxString _difficultyLevel = 'Any'.obs;
 
   // Getters to access the values
   double get numberOfQuestions => _numberOfQuestions.value;
@@ -11,7 +11,7 @@ class QuizConfigController extends GetxController {
 
   // Available difficulty levels for the dropdown
   final List<String> difficultyOptions = [
-    'Any Difficulty',
+    'Any',
     'Easy',
     'Medium',
     'Hard',
