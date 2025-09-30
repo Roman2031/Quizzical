@@ -29,7 +29,7 @@ class _ResultScreenState extends State<ResultScreen> {
                 /// 🎉 Confetti image
                 Image.asset(
                   'assets/results/congratulations.png',
-                  height: 380,
+                  height: 300,
                 ),
 
                  SizedBox(height: 32),
@@ -55,7 +55,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     border: Border.all(color:  Color(0xFFB6EBC3)),
                   ),
                   child: Text(
-                    'You scored ${widget.resultModel.correctAnswers}/${widget.resultModel.totalQuestion}',
+                    'You scored ${(widget.resultModel.correctAnswers / widget.resultModel.totalQuestion * 100).toStringAsFixed(0)}%',
                     style:  GoogleFonts.aoboshiOne(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
