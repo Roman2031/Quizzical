@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../controllers/result_controller.dart';
 import '../models/result_model.dart';
 
 class ResultScreen extends StatefulWidget {
   final ResultModel resultModel;
-   // score in percentage
+  // score in percentage
 
   ResultScreen({required this.resultModel});
 
@@ -14,6 +15,7 @@ class ResultScreen extends StatefulWidget {
 }
 
 class _ResultScreenState extends State<ResultScreen> {
+  final ResultController controller = Get.put(ResultController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,18 +23,14 @@ class _ResultScreenState extends State<ResultScreen> {
       body: SafeArea(
         child: Center(
           child: Padding(
-            padding:  EdgeInsets.symmetric(horizontal: 24.0),
+            padding: EdgeInsets.symmetric(horizontal: 24.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
                 /// 🎉 Confetti image
-                Image.asset(
-                  'assets/results/congratulations.png',
-                  height: 300,
-                ),
+                Image.asset('assets/results/congratulations.png', height: 300),
 
-                 SizedBox(height: 32),
+                SizedBox(height: 32),
 
                 /// 🎯 Congratulation Text
                 Text(
@@ -44,19 +42,19 @@ class _ResultScreenState extends State<ResultScreen> {
                   ),
                 ),
 
-                 SizedBox(height: 24),
+                SizedBox(height: 24),
 
                 /// 🟩 Score Box
                 Container(
-                  padding:  EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+                  padding: EdgeInsets.symmetric(vertical: 16, horizontal: 32),
                   decoration: BoxDecoration(
-                    color:  Color(0xFFE6F9E8),
+                    color: Color(0xFFE6F9E8),
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color:  Color(0xFFB6EBC3)),
+                    border: Border.all(color: Color(0xFFB6EBC3)),
                   ),
                   child: Text(
                     'You scored ${(widget.resultModel.correctAnswers / widget.resultModel.totalQuestion * 100).toStringAsFixed(0)}%',
-                    style:  GoogleFonts.aoboshiOne(
+                    style: GoogleFonts.aoboshiOne(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
                       color: Color(0xFF008000), // Green
@@ -64,10 +62,21 @@ class _ResultScreenState extends State<ResultScreen> {
                   ),
                 ),
 
-                 SizedBox(height: 20),
+                SizedBox(height: 20),
+                Text(
+                  "Correct Answers: ${widget.resultModel.correctAnswers} out of ${widget.resultModel.totalQuestion}",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.balooTamma2(
+                    fontSize: 24,
+                    color: Colors.teal,
+                    fontWeight: FontWeight.bold,
+
+                  ),
+                ),
+                SizedBox(height: 20),
 
                 /// 📝 Subtext
-                 Text(
+                Text(
                   "You've got a great foundation. Ready to try a\ndifferent category?",
                   textAlign: TextAlign.center,
                   style: GoogleFonts.balooTamma2(
@@ -77,23 +86,21 @@ class _ResultScreenState extends State<ResultScreen> {
                   ),
                 ),
 
-                 SizedBox(height: 40),
+                SizedBox(height: 40),
 
                 /// 🔁 Play Again Button
                 SizedBox(
                   width: double.infinity,
                   height: 56,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Get.offAllNamed('/categoriesScreen'); // or go to category screen
-                    },
+                    onPressed: () => controller.playAgin(),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:  Color(0xFF00796B), // teal
+                      backgroundColor: Color(0xFF00796B), // teal
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    child:  Text(
+                    child: Text(
                       'PLAY AGAIN',
                       style: GoogleFonts.baloo2(
                         color: Colors.white,

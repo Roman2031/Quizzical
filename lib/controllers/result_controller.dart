@@ -1,5 +1,7 @@
-class ResultController {
-  // Add any state management or logic for the results screen here
+import 'package:get/get.dart';
 
-  
+class ResultController {
+  void playAgin() {
+    Get.offNamed('/categoriesScreen');
+  }
 }

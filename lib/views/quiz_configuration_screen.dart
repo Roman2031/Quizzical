@@ -16,7 +16,6 @@ class QuizConfigurationScreen extends StatefulWidget {
 }
 
 class _QuizConfigurationScreenState extends State<QuizConfigurationScreen> {
-  // Instantiate the controller only once
   final QuizConfigController controller = Get.put(QuizConfigController());
 
   @override
