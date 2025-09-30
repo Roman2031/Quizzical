@@ -4,7 +4,7 @@ class AllQuestionModel {
   final String? category;
   final String? question;
   final String? correctAnswer;
-  final List<String> incorrectAnswers;
+  final List<String> answers;
 
   AllQuestionModel({
     this.type,
@@ -12,7 +12,7 @@ class AllQuestionModel {
     this.category,
     this.question,
     this.correctAnswer,
-    required this.incorrectAnswers,
+    required this.answers,
   });
 
   factory AllQuestionModel.fromJson(Map<String, dynamic> json) {
@@ -22,7 +22,7 @@ class AllQuestionModel {
       category: json['category'] as String?,
       question: json['question'] as String?,
       correctAnswer: json['correct_answer'] as String?,
-      incorrectAnswers: List<String>.from(json['incorrect_answers'] ?? []),
+      answers: List<String>.from(json['incorrect_answers'] ?? []),
     );
   }
 
@@ -32,11 +32,11 @@ class AllQuestionModel {
     "category": category,
     "question": question,
     "correct_answer": correctAnswer,
-    "incorrect_answers": incorrectAnswers,
+    "incorrect_answers": answers,
   };
 
   @override
   String toString() {
-    return 'QuestionModel(type: $type, difficulty: $difficulty, category: $category, question: $question, correctAnswer: $correctAnswer, incorrectAnswers: $incorrectAnswers)';
+    return 'QuestionModel(type: $type, difficulty: $difficulty, category: $category, question: $question, correctAnswer: $correctAnswer, incorrectAnswers: $answers)';
   }
 }

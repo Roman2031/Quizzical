@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:quizzical/services/question_services.dart';
 import '../models/category_model.dart';
 import '../models/all_question__model.dart';
+import '../models/question_model.dart';
 import '../services/category_services.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -19,9 +20,9 @@ class QuestionController extends GetxController {
     required String difficulty,
     required String type,
   }) async {
-    try {      
-    isLoading.value = true;
-    final questionServices = QuestionServices();
+    try {
+      isLoading.value = true;
+      final questionServices = QuestionServices();
       final List<AllQuestionModel> value = await questionServices.getQuestionList(
         amount: amount,
         category: category,
@@ -39,10 +40,25 @@ class QuestionController extends GetxController {
         return;
       }
       // GetStorage().write('quesitonList', questionList);
-      var result = questionList.value;
-      print('Question List: $result');
-      Get.toNamed('/single_question_screen', arguments: result);
+      final questionConfiguration = questionList.toList();
+      final List<AllQuestionModel> questions = <AllQuestionModel>[];
 
+      for (var item in questionConfiguration) {
+        questions.add(AllQuestionModel(
+          category: item.category,
+          type: item.type,
+          difficulty: item.difficulty,
+          question: item.question,
+          correctAnswer: item.correctAnswer,
+          answers: item.answers + [item.correctAnswer ?? ''].toList()..shuffle(),
+        ));
+      }
+
+      final result = questions;
+
+      print('Question List: $result');
+
+      Get.toNamed('/single_question_screen', arguments: result);
     } catch (e) {
       debugPrint('Failed to load questions: $e');
     } finally {

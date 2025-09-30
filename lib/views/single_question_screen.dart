@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizzical/controllers/single_question_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../models/all_question__model.dart';
 
 class SingleQuestionScreen extends StatelessWidget {
@@ -12,13 +11,12 @@ class SingleQuestionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    controller.questions = quesitonList.obs;    
+    controller.questions.value = quesitonList.obs;   
     return Scaffold(
       backgroundColor:  Color(0xFFF6F6F6),
       body: SafeArea(
         child: Obx(() {
           final question = controller.questions[controller.currentIndex.value];
-
           return Padding(
             padding:  EdgeInsets.all(20.0),
             child: Column(
@@ -50,14 +48,14 @@ class SingleQuestionScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    question.question!,
+                    question.question ?? '',
                     style: GoogleFonts.baloo2(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
                 SizedBox(height: 20),
 
                 /// Options
-                ...question.incorrectAnswers.map((option) {
+                ...question.answers.map((option) {
                   bool isSelected = controller.selectedAnswer.value == option;
                   return GestureDetector(
                     onTap: () => controller.selectAnswer(option),
