@@ -7,6 +7,7 @@ class SingleQuestionController extends GetxController {
   var currentIndex = 0.obs;
   var nextButtonText = "Next".obs;
   var selectedAnswer = RxnString();
+  final Rx<bool> isAnswered = false.obs;
   final Rx<Color> selectedColor = Colors.white.obs;
   final Rx<Color> selectedIconBackgroundColor = Colors.white.obs;
   final Rxn<Icon> selectedIcon = Rxn<Icon>();
@@ -22,6 +23,7 @@ class SingleQuestionController extends GetxController {
   // ].obs;
 
   void selectAnswer(String answer) {
+    if (isAnswered.value) return; // Prevent changing answer once selected
     if (answer == questions[currentIndex.value].correctAnswer) {
       selectedColor.value = Color(0xFFD6EADF);
       selectedIcon.value = Icon(Icons.check, color: Colors.white, size: 14);
@@ -32,9 +34,20 @@ class SingleQuestionController extends GetxController {
       selectedIconBackgroundColor.value = Colors.red.shade900;
     }
     selectedAnswer.value = answer;
+    isAnswered.value = true;
   }
 
   void nextQuestion() {
+    if (!isAnswered.value) {
+      Get.snackbar(
+        'No Answer Selected',
+        'Please select an answer before proceeding to the next question.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red.shade400,
+        colorText: Colors.white,        
+      );
+      return;
+    }
     if (currentIndex.value < questions.length - 1) {
       currentIndex.value++;
       selectedAnswer.value = null;
@@ -42,5 +55,6 @@ class SingleQuestionController extends GetxController {
           ? nextButtonText.value = "Next"
           : nextButtonText.value = "Finish";
     }
+    isAnswered.value = false;
   }
 }
