@@ -60,4 +60,9 @@ class SingleQuestionController extends GetxController {
     }
     isAnswered.value = false;
   }
+
+    void clearData() {
+    currentIndex.value = 0;
+    correct_answer.value = 0;
+    }
 }

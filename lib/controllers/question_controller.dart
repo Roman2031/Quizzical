@@ -66,4 +66,9 @@ class QuestionController extends GetxController {
     selectedCategory.value = categoryId;
     Get.toNamed('/quiz_configuration_screen', arguments: categoryId);
   }
+
+    void clearData() {
+    selectedCategory.value = 0;
+    questionList.clear();
+    }
 }

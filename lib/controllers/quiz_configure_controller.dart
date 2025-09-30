@@ -55,4 +55,8 @@ class QuizConfigController extends GetxController {
       isLoading.value = false;
     }
   }
+    void clearData() {
+    _numberOfQuestions.value = 10.0;
+    _difficultyLevel.value = 'Easy';
+    }
 }
