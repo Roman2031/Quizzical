@@ -7,8 +7,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:quizzical/main.dart';
 import 'package:quizzical/views/welcome_screen.dart';
 
 void main() {

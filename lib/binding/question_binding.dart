@@ -1,5 +1,3 @@
-// lib/bindings/quiz_binding.dart
-
 import 'package:get/get.dart';
 import 'package:quizzical/controllers/question_controller.dart';
 

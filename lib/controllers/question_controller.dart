@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quizzical/services/question_services.dart';
-import '../models/category_model.dart';
 import '../models/all_question__model.dart';
-import '../services/category_services.dart';
-import 'package:get_storage/get_storage.dart';
 
 class QuestionController extends GetxController {
   // Observable variable to hold the currently selected category index (or ID/Name).
