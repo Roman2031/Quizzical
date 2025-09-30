@@ -8,5 +8,6 @@ class SingleQuestionBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<SingleQuestionController>(() => SingleQuestionController());
+    Get.lazyPut<QuizController>(() => QuizController());
   }
 }

@@ -3,11 +3,16 @@ import 'package:get/get.dart';
 import 'package:quizzical/controllers/single_question_controller.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../models/all_question__model.dart';
+
 class SingleQuestionScreen extends StatelessWidget {
+ final List<AllQuestionModel> quesitonList;
+  SingleQuestionScreen({required this.quesitonList});
   final SingleQuestionController controller = Get.put(SingleQuestionController());
 
   @override
   Widget build(BuildContext context) {
+    controller.questions = quesitonList.obs;    
     return Scaffold(
       backgroundColor:  Color(0xFFF6F6F6),
       body: SafeArea(
@@ -45,14 +50,14 @@ class SingleQuestionScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
-                    question.question,
+                    question.question!,
                     style: GoogleFonts.baloo2(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
                 SizedBox(height: 20),
 
                 /// Options
-                ...question.incorrect_answers.map((option) {
+                ...question.incorrectAnswers.map((option) {
                   bool isSelected = controller.selectedAnswer.value == option;
                   return GestureDetector(
                     onTap: () => controller.selectAnswer(option),

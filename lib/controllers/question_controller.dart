@@ -38,9 +38,10 @@ class QuestionController extends GetxController {
         );
         return;
       }
-      GetStorage().write('quesitonList', questionList);
-      print(GetStorage().read('quesitonList'));
-      Get.toNamed('/single_question_screen');
+      // GetStorage().write('quesitonList', questionList);
+      var result = questionList.value;
+      print('Question List: $result');
+      Get.toNamed('/single_question_screen', arguments: result);
 
     } catch (e) {
       debugPrint('Failed to load questions: $e');
