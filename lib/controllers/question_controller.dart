@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:quizzical/services/question_services.dart';
 import '../models/category_model.dart';
 import '../models/all_question__model.dart';
-import '../models/question_model.dart';
 import '../services/category_services.dart';
 import 'package:get_storage/get_storage.dart';
 

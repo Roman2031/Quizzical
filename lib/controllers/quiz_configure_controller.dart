@@ -3,7 +3,7 @@ import 'package:quizzical/controllers/question_controller.dart';
 
 class QuizConfigController extends GetxController {
   // Observables for state management
-  final RxDouble _numberOfQuestions = 25.0.obs;
+  final RxDouble _numberOfQuestions = 10.0.obs;
   final RxString _difficultyLevel = 'Easy'.obs;
   RxBool isLoading = false.obs;
   // Getters to access the values
