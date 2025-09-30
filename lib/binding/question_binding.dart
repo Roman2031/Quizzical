@@ -2,7 +2,6 @@
 
 import 'package:get/get.dart';
 import 'package:quizzical/controllers/question_controller.dart';
-import '../controllers/quiz_controller.dart';
 
 class QuestionBinding extends Bindings {
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:quizzical/binding/result_bindings.dart';
-import 'binding/quiz_binding.dart';
 import 'binding/quiz_categories_bindings.dart';
 import 'binding/single_question_binding.dart';
 import 'models/all_question__model.dart';
